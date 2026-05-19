@@ -903,7 +903,7 @@ covariate state to route a subject through the forest over time.</p>
 <p>RHF supports time-dependent AUC summaries based on out-of-bag
 prediction. These are useful when the question is not only whether a
 model predicts well overall, but also when during follow-up the model is
-most discriminating. The function <code>rhf.auct()</code> computes AUC
+most discriminating. The function <code>auct.rhf()</code> computes AUC
 over time using either cumulative hazard or hazard as the marker.
 Time-dependent ROC and AUC summaries are standard tools for censored
 event-time prediction <span class="citation">[7–10]</span>.</p>
@@ -917,10 +917,10 @@ event-time prediction <span class="citation">[7–10]</span>.</p>
 <span><span class="va">fit.n15</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rhf.html">rhf</a></span><span class="op">(</span><span class="va">f.vo2</span>, <span class="va">d.vo2</span>, ntree <span class="op">=</span> <span class="fl">500</span>, nodesize <span class="op">=</span> <span class="fl">15</span>,</span>
 <span>               seed <span class="op">=</span> <span class="op">-</span><span class="fl">5</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">auc.n1.chf</span>  <span class="op">&lt;-</span> <span class="fu">rhf.auct</span><span class="op">(</span><span class="va">fit.n1</span><span class="op">)</span>                 <span class="co"># marker = "chf"</span></span>
-<span><span class="va">auc.n1.haz</span>  <span class="op">&lt;-</span> <span class="fu">rhf.auct</span><span class="op">(</span><span class="va">fit.n1</span>,  marker <span class="op">=</span> <span class="st">"haz"</span><span class="op">)</span></span>
-<span><span class="va">auc.n15.chf</span> <span class="op">&lt;-</span> <span class="fu">rhf.auct</span><span class="op">(</span><span class="va">fit.n15</span><span class="op">)</span>                <span class="co"># marker = "chf"</span></span>
-<span><span class="va">auc.n15.haz</span> <span class="op">&lt;-</span> <span class="fu">rhf.auct</span><span class="op">(</span><span class="va">fit.n15</span>, marker <span class="op">=</span> <span class="st">"haz"</span><span class="op">)</span></span>
+<span><span class="va">auc.n1.chf</span>  <span class="op">&lt;-</span> <span class="fu">auct.rhf</span><span class="op">(</span><span class="va">fit.n1</span><span class="op">)</span>                 <span class="co"># marker = "chf"</span></span>
+<span><span class="va">auc.n1.haz</span>  <span class="op">&lt;-</span> <span class="fu">auct.rhf</span><span class="op">(</span><span class="va">fit.n1</span>,  marker <span class="op">=</span> <span class="st">"haz"</span><span class="op">)</span></span>
+<span><span class="va">auc.n15.chf</span> <span class="op">&lt;-</span> <span class="fu">auct.rhf</span><span class="op">(</span><span class="va">fit.n15</span><span class="op">)</span>                <span class="co"># marker = "chf"</span></span>
+<span><span class="va">auc.n15.haz</span> <span class="op">&lt;-</span> <span class="fu">auct.rhf</span><span class="op">(</span><span class="va">fit.n15</span>, marker <span class="op">=</span> <span class="st">"haz"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">auc.n1.chf</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">auc.n15.chf</span><span class="op">)</span></span>
@@ -1311,7 +1311,7 @@ hazard estimates.</td>
 working time grid.</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>rhf.auct()</code></td>
+<td align="left"><code>auct.rhf()</code></td>
 <td align="left">Computes time dependent AUC summaries.</td>
 <td align="left">Use this to assess discrimination over time, preferably
 using out of bag quantities for training sample assessment.</td>
