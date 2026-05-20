@@ -97,7 +97,7 @@
 <a href="https://ishwaran.org/ishwaran.html" class="external-link">Hemant Ishwaran</a> (<a href="mailto:hemant.ishwaran@gmail.com" class="email">hemant.ishwaran@gmail.com</a>) <br><br><a href="https://www.luminwin.net/" class="external-link">Min Lu</a> (<a href="mailto:luminwin@gmail.com" class="email">luminwin@gmail.com</a>)
 <br><br> Udaya B. Kogalur (<a href="mailto:ubk@kogalur.com" class="email">ubk@kogalur.com</a>)</h4>
             
-            <h4 data-toc-skip class="date">2026-05-14</h4>
+            <h4 data-toc-skip class="date">2026-05-19</h4>
       
 
       <div class="hidden name"><code>getstarted.Rmd</code></div>
@@ -554,10 +554,11 @@ updates, events, censoring times, or changes in at-risk status. The
 interval carries the predictable covariate value <span class="math display">$$
 {\bf Z}_{i,r}={\bf X}_i(T_{i,r}-),
 $$</span> the last value available just before the end of the interval.
-A split rule is therefore applied to <span class="math inline">${\bf
-Z}_{i,r}$</span>, not to information that would only become available
-after the interval. This is what lets RHF use longitudinal data without
-violating the time order of prediction.</p>
+A split rule is therefore applied to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝐙</mi><mrow><mi>i</mi><mo>,</mo><mi>r</mi></mrow></msub><annotation encoding="application/x-tex">\mathbf{Z}_{i,r}</annotation></semantics></math>,
+not to information that would only become available after the interval.
+This is what lets RHF use longitudinal data without violating the time
+order of prediction.</p>
 <p>For users, the practical interpretation is straightforward. Each row
 in the counting-process data is an interval-level record. If a subject’s
 covariates change over time, the subject has multiple rows. RHF treats
@@ -903,7 +904,7 @@ covariate state to route a subject through the forest over time.</p>
 <p>RHF supports time-dependent AUC summaries based on out-of-bag
 prediction. These are useful when the question is not only whether a
 model predicts well overall, but also when during follow-up the model is
-most discriminating. The function <code>auct.rhf()</code> computes AUC
+most discriminating. The function <code><a href="../reference/auct.rhf.html">auct.rhf()</a></code> computes AUC
 over time using either cumulative hazard or hazard as the marker.
 Time-dependent ROC and AUC summaries are standard tools for censored
 event-time prediction <span class="citation">[7–10]</span>.</p>
@@ -917,10 +918,10 @@ event-time prediction <span class="citation">[7–10]</span>.</p>
 <span><span class="va">fit.n15</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rhf.html">rhf</a></span><span class="op">(</span><span class="va">f.vo2</span>, <span class="va">d.vo2</span>, ntree <span class="op">=</span> <span class="fl">500</span>, nodesize <span class="op">=</span> <span class="fl">15</span>,</span>
 <span>               seed <span class="op">=</span> <span class="op">-</span><span class="fl">5</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">auc.n1.chf</span>  <span class="op">&lt;-</span> <span class="fu">auct.rhf</span><span class="op">(</span><span class="va">fit.n1</span><span class="op">)</span>                 <span class="co"># marker = "chf"</span></span>
-<span><span class="va">auc.n1.haz</span>  <span class="op">&lt;-</span> <span class="fu">auct.rhf</span><span class="op">(</span><span class="va">fit.n1</span>,  marker <span class="op">=</span> <span class="st">"haz"</span><span class="op">)</span></span>
-<span><span class="va">auc.n15.chf</span> <span class="op">&lt;-</span> <span class="fu">auct.rhf</span><span class="op">(</span><span class="va">fit.n15</span><span class="op">)</span>                <span class="co"># marker = "chf"</span></span>
-<span><span class="va">auc.n15.haz</span> <span class="op">&lt;-</span> <span class="fu">auct.rhf</span><span class="op">(</span><span class="va">fit.n15</span>, marker <span class="op">=</span> <span class="st">"haz"</span><span class="op">)</span></span>
+<span><span class="va">auc.n1.chf</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/auct.rhf.html">auct.rhf</a></span><span class="op">(</span><span class="va">fit.n1</span><span class="op">)</span>                 <span class="co"># marker = "chf"</span></span>
+<span><span class="va">auc.n1.haz</span>  <span class="op">&lt;-</span> <span class="fu"><a href="../reference/auct.rhf.html">auct.rhf</a></span><span class="op">(</span><span class="va">fit.n1</span>,  marker <span class="op">=</span> <span class="st">"haz"</span><span class="op">)</span></span>
+<span><span class="va">auc.n15.chf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/auct.rhf.html">auct.rhf</a></span><span class="op">(</span><span class="va">fit.n15</span><span class="op">)</span>                <span class="co"># marker = "chf"</span></span>
+<span><span class="va">auc.n15.haz</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/auct.rhf.html">auct.rhf</a></span><span class="op">(</span><span class="va">fit.n15</span>, marker <span class="op">=</span> <span class="st">"haz"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">auc.n1.chf</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">auc.n15.chf</span><span class="op">)</span></span>
@@ -1039,13 +1040,14 @@ is the pathwise admissible set for variable
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>.
 For a continuous variable this is usually an interval, while for a
 categorical variable it is a subset of categories.</p>
-<p>The rule defines the region <span class="math display">$$
+<p>The rule defines the region
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>ζ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><munder><mo>⋂</mo><mrow><mi>k</mi><mo>∈</mo><mi>V</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>ζ</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></munder><mo stretchy="false" form="prefix">{</mo><mi>𝐱</mi><mo>∣</mo><msup><mi>x</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo stretchy="true" form="postfix">)</mo></mrow></msup><mo>∈</mo><msub><mi>ℐ</mi><mi>k</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>ζ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
 r(\zeta)
 =
 \bigcap_{k\in V(\zeta)}
-\{{\bf x}\mid x^{(k)}\in \mathcal{I}_k(\zeta)\}.
-$$</span> A variable can appear more than once along a path. In that
-case,
+\{\mathbf{x}\mid x^{(k)}\in \mathcal{I}_k(\zeta)\}.
+</annotation></semantics></math> A variable can appear more than once
+along a path. In that case,
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ℐ</mi><mi>k</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>ζ</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{I}_k(\zeta)</annotation></semantics></math>
 is the intersection of all restrictions involving variable
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
@@ -1055,12 +1057,13 @@ along that path.</p>
 VarPro releases the rule by dropping the constraints involving variables
 in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.
-The released rule is <span class="math display">$$
+The released rule is
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><msup><mi>ζ</mi><mi>S</mi></msup><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><munder><mo>⋂</mo><mrow><mi>k</mi><mo>∈</mo><mi>V</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>ζ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>\</mo><mi>S</mi></mrow></munder><mo stretchy="false" form="prefix">{</mo><mi>𝐱</mi><mo>∣</mo><msup><mi>x</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>k</mi><mo stretchy="true" form="postfix">)</mo></mrow></msup><mo>∈</mo><msub><mi>ℐ</mi><mi>k</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>ζ</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
 r(\zeta^S)
 =
 \bigcap_{k\in V(\zeta)\setminus S}
-\{{\bf x}\mid x^{(k)}\in \mathcal{I}_k(\zeta)\}.
-$$</span> If releasing
+\{\mathbf{x}\mid x^{(k)}\in \mathcal{I}_k(\zeta)\}.
+</annotation></semantics></math> If releasing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
 changes the local RHF risk summary, then the variables in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
@@ -1311,7 +1314,7 @@ hazard estimates.</td>
 working time grid.</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>auct.rhf()</code></td>
+<td align="left"><code><a href="../reference/auct.rhf.html">auct.rhf()</a></code></td>
 <td align="left">Computes time dependent AUC summaries.</td>
 <td align="left">Use this to assess discrimination over time, preferably
 using out of bag quantities for training sample assessment.</td>
@@ -1423,9 +1426,8 @@ for unsupervised variable selection</a>. Pattern Recognition.
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-            <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
     </nav>
-
       </div>
 
 </div>
