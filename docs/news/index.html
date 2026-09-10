@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Random Hazard Forests</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.3</span>
       </span>
     </div>
 
@@ -70,13 +70,49 @@
 
     </div>
 
-  </div>
-  
-  <div class="section level3">
-  <h3 id="release-CRAN-birthday-of-randomForestRHF-is-0-0-63">RELEASE 1.0.0. Initial release on CRAN on 2026/04/23!<a class="anchor" aria-label="anchor" href="#release-the-birthday-of-randomForestRHF-is-0-0-63"></a></h3>
 
-<h3 id="release-the-birthday-of-randomForestRHF-is-0-0-63">RELEASE 1.0.0. The birthday of randomForestRHF is 2026-04-23<a class="anchor" aria-label="anchor" href="#release-the-birthday-of-randomForestRHF-is-0-0-63"></a></h3>
+<div class="section level2">
+<h2 id="randomforestrhf-2-0-3">randomForestRHF 2.0.3<a class="anchor" aria-label="anchor" href="#randomforestrhf-2-0-3"></a></h2>
+<ul>
+<li><p>Added direct <code>Surv(time, event)</code> support to fitting, prediction, restore, and tree-size tuning. Ordinary right-censored data are converted internally to one interval per subject, fitted forests retain the original response map, and <code>predict.rhf()</code> accepts test data using the original time/event column names; the four-argument counting-process interface remains available for time-dependent covariates.</p></li>
+<li><p>Distinguished public prediction domains by original response format across grow, restore, and outcome-bearing prediction. Right-censored, time-static fits now return hazard and CHF over the complete forest horizon; counting-process fits keep hazards <code>NA</code> outside supplied paths, keep CHF flat through internal gaps, and set CHF to <code>NA</code> after each subject&#39;s final stop.</p></li>
+<li><p>Made the tree-size tuning preflight use the same normalized data, event-process classification, and event-supported bounds as <code>rhf()</code>, including when an explicit upper bound is supplied.</p></li>
+<li><p>Corrected cumulative/dynamic <code>auct.rhf()</code> to reconstruct common-time markers from retained tree-level hazard/CHF arrays using the fitted ensemble aggregation rule, including Nelson–Aalen mean aggregation and the exact-median endpoint, while leaving public path-domain predictions unchanged. AUC output now records marker diagnostics and reports a clear error when required raw arrays are unavailable.</p></li>
+<li><p>Corrected the incident-AUC tuning example to use a feasible grouped-case threshold, preventing an all-nonfinite criterion when <code>--run-donttest</code> examples are checked.</p></li>
+</ul>
 </div>
+<div class="section level2">
+<h2 id="randomforestrhf-2-0-0">randomForestRHF 2.0.0<a class="anchor" aria-label="anchor" href="#randomforestrhf-2-0-0"></a></h2>
+<ul>
+<li><p>Added the native Conservation-of-Events (COE) terminal-node hazard estimator and robust across-tree aggregation. The default adaptive protocol selects a winsorization fraction by OOB risk; median, mean, fixed trimming, and the legacy Nelson–Aalen estimator remain available.</p></li>
+<li><p>Corrected OOB hazard risk, cumulative-hazard integration, and case-specific trajectory construction to use exact start–stop/grid overlap.</p></li>
+<li><p>Case-specific hazards are now <code>NA</code> outside the supplied <code>(start, stop]</code> paths, while cumulative hazards remain flat through gaps and after follow-up.</p></li>
+<li><p>Made grow, restore, and outcome-bearing prediction share the fitted hazard configuration and return coherent risk, membership, tree-level hazard/CHF, and terminal-node <code>U</code>, <code>V</code>, and COE outputs.</p></li>
+<li><p>Strengthened counting-process validation and event bookkeeping. Unsupported recurrent-event histories are now detected and reported explicitly.</p></li>
+<li><p>Reworked default tree sizing and tree-size tuning to use observed event support, preserve time-grid and aggregation settings, and reproducibly refit the selected forest.</p></li>
+<li><p>Improved <code>auct.rhf()</code> subject-level bootstrapping and expanded time-localized VarPro tools with pilot-forest predictor weights and bar-matrix, dot-matrix, and line displays.</p></li>
+<li><p>Renamed the survival split rules to <code>hazard.loglik</code> and <code>hazard.nelson.aalen</code>. Importance plotting arguments now use dotted names, <code>xvar.wt.rhf()</code> uses the pilot/cache interface, and <code>treesize</code> should be numeric.</p></li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="randomforestrhf-1-0-1">randomForestRHF 1.0.1<a class="anchor" aria-label="anchor" href="#randomforestrhf-1-0-1"></a></h2>
+<ul>
+<li><p>Maintenance update with bug fixes and CRAN-related cleanups.</p></li>
+<li><p>Added explicit POSIX socket/select header includes in <code>src/server.h</code> for improved musl/Alpine compatibility.</p></li>
+<li><p>Replaced unsuppressible console output in <code>print.rhf()</code>, <code>print.auct.rhf()</code>, and RHF importance helpers with suppressible message-based output.</p></li>
+<li><p>Hardened prediction and native-interface handling, including more robust checks for variable-level metadata passed from R to compiled code.</p></li>
+<li><p>Updated native routine registration to match the current C entry-point signatures and applied minor build/source cleanups.</p></li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="randomforestrhf-1-0-0">randomForestRHF 1.0.0<a class="anchor" aria-label="anchor" href="#randomforestrhf-1-0-0"></a></h2>
+<ul>
+<li><p>Initial release on CRAN on 2026/04/23. The birthday of randomForestRHF is 2026-04-23.</p></li>
+</ul>
+</div>
+
+  </div>
+
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>

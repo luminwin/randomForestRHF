@@ -27,7 +27,7 @@ Tune the treesize for a Random Hazard Forest using either
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Random Hazard Forests</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.3</span>
       </span>
     </div>
 
@@ -97,9 +97,12 @@ Tune the treesize for a Random Hazard Forest using either
 <span>  ntree <span class="op">=</span> <span class="fl">500</span>,</span>
 <span>  nsplit <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  nodesize <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  ntime <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  min.events.per.gap <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  adaptive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  perf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"risk"</span>, <span class="st">"iAUC"</span><span class="op">)</span>,</span>
 <span>  auct.args <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  lower <span class="op">=</span> <span class="fl">2L</span>,</span>
+<span>  lower <span class="op">=</span> <span class="fl">5L</span>,</span>
 <span>  upper <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  C <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"golden"</span>, <span class="st">"bisect"</span><span class="op">)</span>,</span>
@@ -116,6 +119,7 @@ Tune the treesize for a Random Hazard Forest using either
 <span>  <span class="va">formula</span>,</span>
 <span>  <span class="va">data</span>,</span>
 <span>  auct.args <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  adaptive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -130,13 +134,16 @@ Tune the treesize for a Random Hazard Forest using either
 
 <p></p>
 <dl><dt id="arg-formula">formula<a class="anchor" aria-label="anchor" href="#arg-formula"></a></dt>
-<dd><p>Survival formula for <code><a href="rhf.html">rhf</a></code>, typically
-    <code>Surv(id, start, stop, event) ~ .</code>.</p></dd>
+<dd><p>Survival formula for <code><a href="rhf.html">rhf</a></code>. The
+    response may be ordinary right-censored data,
+    <code>Surv(time, event)</code>, or counting-process data,
+    <code>Surv(id, start, stop, event)</code>.</p></dd>
 
 
   <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
-<dd><p>Counting-process data frame containing the variables in
-    <code>formula</code>.</p></dd>
+<dd><p>Data frame containing the variables in <code>formula</code>.
+    Ordinary right-censored input has one row per subject;
+    counting-process input may have multiple rows per subject.</p></dd>
 
 
   <dt id="arg-ntree">ntree<a class="anchor" aria-label="anchor" href="#arg-ntree"></a></dt>
@@ -150,6 +157,32 @@ Tune the treesize for a Random Hazard Forest using either
   <dt id="arg-nodesize">nodesize<a class="anchor" aria-label="anchor" href="#arg-nodesize"></a></dt>
 <dd><p>Minimum number of events in a terminal node; passed to
     <code><a href="rhf.html">rhf</a></code>.</p></dd>
+
+
+  <dt id="arg-ntime">ntime<a class="anchor" aria-label="anchor" href="#arg-ntime"></a></dt>
+<dd><p>Controls the working time grid used by every candidate
+    <code><a href="rhf.html">rhf</a></code> fit and by the final refit. It has the same meaning
+    and default as in <code><a href="rhf.html">rhf</a></code>. When <code>upper = NULL</code>, it is
+    also used when processing the event information for the automatic tuning
+    range.</p></dd>
+
+
+  <dt id="arg-min-events-per-gap">min.events.per.gap<a class="anchor" aria-label="anchor" href="#arg-min-events-per-gap"></a></dt>
+<dd><p>Minimum number of observed events required in
+    each working-time interval when <code>ntime</code> is specified as an integer.
+    The value is passed to every candidate <code><a href="rhf.html">rhf</a></code> fit and to the
+    final refit. When <code>upper = NULL</code>, it also determines the
+    package-default tree size and event-support limit used to construct the
+    automatic upper bound.</p></dd>
+
+
+  <dt id="arg-adaptive">adaptive<a class="anchor" aria-label="anchor" href="#arg-adaptive"></a></dt>
+<dd><p>Logical flag passed to <code><a href="rhf.html">rhf</a></code>. When
+    <code>TRUE</code>, each candidate forest uses the default adaptive
+    trimming protocol. When <code>FALSE</code>, each candidate forest uses the
+    fixed trimming fraction <code>0.05</code>, so the tuning criterion varies
+    with <code>treesize</code> while holding this hazard aggregation setting
+    fixed.</p></dd>
 
 
   <dt id="arg-perf">perf<a class="anchor" aria-label="anchor" href="#arg-perf"></a></dt>
@@ -168,12 +201,18 @@ Tune the treesize for a Random Hazard Forest using either
 
 
   <dt id="arg-upper">upper<a class="anchor" aria-label="anchor" href="#arg-upper"></a></dt>
-<dd><p>Largest <code>treesize</code> considered.</p></dd>
+<dd><p>Largest <code>treesize</code> considered. If <code>NULL</code>,
+    the upper bound is computed from the event information used by
+    <code><a href="rhf.html">rhf</a></code>. Specifically, it is the smaller of <code>C</code>
+    times the package-default tree size and the event-supported limit
+    <code>floor(ndead / min.events.per.gap)</code>, where <code>ndead</code> is
+    the number of events remaining after RHF data processing.</p></dd>
 
 
   <dt id="arg-c">C<a class="anchor" aria-label="anchor" href="#arg-c"></a></dt>
-<dd><p>Multiplier used when computing the default upper bound if
-    <code>upper</code> is <code>NULL</code>.</p></dd>
+<dd><p>Multiplier applied to the package-default tree size when
+    computing the automatic upper bound. The resulting value is capped
+    by the event-supported limit.</p></dd>
 
 
   <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
@@ -222,13 +261,25 @@ Tune the treesize for a Random Hazard Forest using either
 
 <p>The alias <code>tune.rhf</code> is provided for convenience.</p>
 
-<p>Rpeatedly fits a hazard forest with different values of <code>treesize</code>
+<p>Repeatedly fits a hazard forest with different values of <code>treesize</code>
 and selects the value that optimizes the chosen criterion
-<code>perf</code>. When <code>perf = "risk"</code>, the criterion is the mean OOB
-risk. When <code>perf = "iAUC"</code>, <code><a href="auct.rhf.html">auct.rhf</a></code> is applied to
-each fit and the criterion is <code>1 - iAUC.uno</code>.  <code>tune.iAUC</code> is
-a wrapper around <code>tune.rhf</code> with <code>perf = "iAUC"</code>, using
-default <code>auct.rhf</code> settings when <code>auct.args = NULL</code>.</p>
+<code>perf</code>. Ordinary <code>Surv(time, event)</code> input is converted
+internally to the same one-interval counting-process representation used
+by <code><a href="rhf.html">rhf</a></code>. The tuning preflight, automatic upper bound, all
+candidate forests, and the final refit therefore use the same effective
+subjects and event information. The returned forest retains the original
+right-censored response names and can be used directly with ordinary
+survival test data through <code><a href="predict.rhf.html">predict.rhf()</a></code>.</p>
+<p>When <code>perf = "risk"</code>, the criterion is the mean OOB risk. When
+<code>perf = "iAUC"</code>, <code><a href="auct.rhf.html">auct.rhf</a></code> is applied to each fit and
+the criterion is <code>1 - iAUC.uno</code>.  <code>tune.iAUC</code> is a wrapper
+around <code>tune.rhf</code> with <code>perf = "iAUC"</code>, using default
+<code>auct.rhf</code> settings when <code>auct.args = NULL</code>.</p>
+<p>Because the default RHF fit adaptively selects the trimming fraction by
+OOB risk, tuning by OOB risk can otherwise combine the choice of
+<code>treesize</code> with adaptive trimming. Use <code>adaptive = FALSE</code> for
+a controlled tree-size search that fixes the trimming fraction at
+<code>coe.trim = 0.05</code>.</p>
     </div>
     <div id="value">
     <h2>Value</h2>
@@ -238,6 +289,10 @@ default <code>auct.rhf</code> settings when <code>auct.args = NULL</code>.</p>
 <li><p><code>path</code>: data frame with evaluated <code>treesize</code> values and
     corresponding criterion values (and an <code>iAUC</code> column when
     <code>perf = "iAUC"</code>);</p></li>
+<li><p><code>n.subjects</code>: number of subjects remaining after RHF input
+    processing;</p></li>
+<li><p><code>adaptive</code>: logical value indicating whether adaptive
+    trimming was used during tuning;</p></li>
 <li><p><code>forest</code>: RHF fit at <code>best.size</code> when
     <code>forest = TRUE</code>.</p></li>
 </ul></div>
@@ -253,12 +308,24 @@ default <code>auct.rhf</code> settings when <code>auct.args = NULL</code>.</p>
 <span><span class="co">## Example: tuning treesize by OOB empirical risk</span></span>
 <span><span class="co">## ------------------------------------------------------------</span></span>
 <span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pbc</span>, package <span class="op">=</span> <span class="st">"randomForestSRC"</span><span class="op">)</span></span>
+<span><span class="va">pbc.raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="va">pbc</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">7</span><span class="op">)</span></span>
-<span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="utilities_internal.html">hazard.simulation</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">$</span><span class="va">dta</span></span>
-<span><span class="va">f</span> <span class="op">&lt;-</span> <span class="st">"Surv(id, start, stop, event) ~ ."</span></span>
+<span><span class="va">trn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">pbc.raw</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">floor</a></span><span class="op">(</span><span class="fl">0.75</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">pbc.raw</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  replace <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">## tune.rhf is an alias for tune.treesize.rhf</span></span>
+<span><span class="va">d</span> <span class="op">&lt;-</span> <span class="va">pbc.raw</span><span class="op">[</span><span class="va">trn</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
+<span><span class="va">tst</span> <span class="op">&lt;-</span> <span class="va">pbc.raw</span><span class="op">[</span><span class="op">-</span><span class="va">trn</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
+<span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu">Surv</span><span class="op">(</span><span class="va">days</span>, <span class="va">status</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span></span>
+<span></span>
+<span><span class="co">## tune.rhf is an alias for tune.treesize.rhf; no manual conversion is needed</span></span>
 <span><span class="va">tuneRisk</span> <span class="op">&lt;-</span> <span class="fu">tune.rhf</span><span class="op">(</span><span class="va">f</span>, <span class="va">d</span><span class="op">)</span>  <span class="co">## same as tune.treesize.rhf(f, d)</span></span>
+<span></span>
+<span><span class="co">## For a controlled tree-size search, keep the trimming fraction fixed.</span></span>
+<span><span class="va">tuneRisk.fixed</span> <span class="op">&lt;-</span> <span class="fu">tune.rhf</span><span class="op">(</span><span class="va">f</span>, <span class="va">d</span>, adaptive <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tuneRisk</span><span class="op">)</span></span>
@@ -272,12 +339,17 @@ default <code>auct.rhf</code> settings when <code>auct.args = NULL</code>.</p>
 <span><span class="va">a.risk</span> <span class="op">&lt;-</span> <span class="fu"><a href="auct.rhf.html">auct.rhf</a></span><span class="op">(</span><span class="va">best.forest</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">a.risk</span><span class="op">$</span><span class="va">iAUC.uno</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co">## the tuned forest accepts the ordinary PBC test data directly</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">best.forest</span>, <span class="va">tst</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
 <span></span>
 <span><span class="co">## ------------------------------------------------------------</span></span>
 <span><span class="co">## Example: tuning treesize by iAUC</span></span>
 <span><span class="co">## ------------------------------------------------------------</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">7</span><span class="op">)</span></span>
+<span><span class="va">f</span> <span class="op">&lt;-</span> <span class="st">"Surv(id, start, stop, event) ~ ."</span></span>
+<span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="utilities_internal.html">hazard.simulation</a></span><span class="op">(</span><span class="fl">1</span>, n<span class="op">=</span><span class="fl">100</span><span class="op">)</span><span class="op">$</span><span class="va">dta</span></span>
 <span><span class="va">tuneiAUC</span> <span class="op">&lt;-</span> <span class="fu">tune.iAUC</span><span class="op">(</span><span class="va">f</span>, <span class="va">d</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
@@ -297,6 +369,8 @@ default <code>auct.rhf</code> settings when <code>auct.args = NULL</code>.</p>
 <span><span class="co">## ------------------------------------------------------------</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">7</span><span class="op">)</span></span>
+<span><span class="va">f</span> <span class="op">&lt;-</span> <span class="st">"Surv(id, start, stop, event) ~ ."</span></span>
+<span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="utilities_internal.html">hazard.simulation</a></span><span class="op">(</span><span class="fl">1</span>, n<span class="op">=</span><span class="fl">100</span><span class="op">)</span><span class="op">$</span><span class="va">dta</span></span>
 <span><span class="va">tuneiAUC.boot</span> <span class="op">&lt;-</span> <span class="fu">tune.iAUC</span><span class="op">(</span><span class="va">f</span>, <span class="va">d</span>, auct.args<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>bootstrap.rep<span class="op">=</span><span class="fl">25</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tuneiAUC.boot</span><span class="op">)</span>        </span>
@@ -304,12 +378,16 @@ default <code>auct.rhf</code> settings when <code>auct.args = NULL</code>.</p>
 <span></span>
 <span><span class="co">## ------------------------------------------------------------</span></span>
 <span><span class="co">## Example: tuning by hazard-based incident AUC</span></span>
+<span><span class="co">## increase min.cases for stability</span></span>
 <span><span class="co">## ------------------------------------------------------------</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">7</span><span class="op">)</span></span>
+<span><span class="va">f</span> <span class="op">&lt;-</span> <span class="st">"Surv(id, start, stop, event) ~ ."</span></span>
+<span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="utilities_internal.html">hazard.simulation</a></span><span class="op">(</span><span class="fl">1</span>, n<span class="op">=</span><span class="fl">100</span><span class="op">)</span><span class="op">$</span><span class="va">dta</span></span>
 <span><span class="va">tuneHazInc</span> <span class="op">&lt;-</span> <span class="fu">tune.iAUC</span><span class="op">(</span></span>
 <span>  <span class="va">f</span>, <span class="va">d</span>,</span>
 <span>  auct.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    min.cases    <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>    marker       <span class="op">=</span> <span class="st">"hazard"</span>,</span>
 <span>    method       <span class="op">=</span> <span class="st">"incident"</span></span>
 <span>  <span class="op">)</span></span>
@@ -326,6 +404,7 @@ default <code>auct.rhf</code> settings when <code>auct.args = NULL</code>.</p>
 <span><span class="va">best.forest.haz</span> <span class="op">&lt;-</span> <span class="va">tuneHazInc</span><span class="op">$</span><span class="va">forest</span></span>
 <span><span class="va">aHazInc</span> <span class="op">&lt;-</span> <span class="fu"><a href="auct.rhf.html">auct.rhf</a></span><span class="op">(</span></span>
 <span>  <span class="va">best.forest.haz</span>,</span>
+<span>  min.cases <span class="op">=</span> <span class="fl">5</span>,</span>
 <span>  marker  <span class="op">=</span> <span class="st">"hazard"</span>,</span>
 <span>  method  <span class="op">=</span> <span class="st">"incident"</span></span>
 <span><span class="op">)</span></span>

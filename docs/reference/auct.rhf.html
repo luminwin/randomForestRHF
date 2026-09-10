@@ -25,7 +25,7 @@ summaries for Random Hazard Forests (RHF) with time-dependent covariates
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Random Hazard Forests</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.3</span>
       </span>
     </div>
 
@@ -195,8 +195,10 @@ summaries for Random Hazard Forests (RHF) with time-dependent covariates
 
   <dt id="arg-bootstrap-refit">bootstrap.refit<a class="anchor" aria-label="anchor" href="#arg-bootstrap-refit"></a></dt>
 <dd><p>Logical. If <code>FALSE</code> (default), uses a subject-level pairs bootstrap with the
-  fitted marker held fixed ("plug-in"). If <code>TRUE</code>, performs a <em>full refit</em> at each replicate,
-  using the original RHF tuning parameters.</p></dd>
+  fitted marker held fixed ("plug-in"). If <code>TRUE</code>, performs a <em>full refit</em> at each replicate.
+  Complete counting-process histories are resampled by subject with multiplicity, and each sampled copy
+  receives a new bootstrap ID. Refit models use the original RHF tuning parameters and inherit the saved
+  hazard/CHF settings from <code>object$forest$parms$hazard.config</code>.</p></dd>
 
 
   <dt id="arg-bootstrap-conf">bootstrap.conf<a class="anchor" aria-label="anchor" href="#arg-bootstrap-conf"></a></dt>
@@ -243,10 +245,12 @@ while <code>"record"</code> is exact but can be sparser. For <code>method = "cum
 <p><strong>Bootstrap.</strong>
 When <code>bootstrap.rep &gt; 0</code>, two modes are available:</p><ul><li><p><em>Plug-in</em> (<code>bootstrap.refit = FALSE</code>): subject-level pairs bootstrap holding the fitted marker matrix fixed.
         Weights the within-time AUC(t) using resampled multiplicities and recomputes Uno's time weights via a weighted KM.</p></li>
-<li><p><em>Refit</em> (<code>bootstrap.refit = TRUE</code>): for each replicate, resample subjects, <em>refit</em> the RHF using the original
-        tuning parameters, and re-evaluate AUC(t). The returned per-time SEs are matched to the original
+<li><p><em>Refit</em> (<code>bootstrap.refit = TRUE</code>): for each replicate, resample complete subject histories with replacement,
+        retaining repeated draws as separate bootstrap subjects, <em>refit</em> the RHF using the original tuning parameters and
+        saved hazard/CHF configuration, and re-evaluate AUC(t). The returned per-time SEs are matched to the original
         evaluation grid. For predict objects, the refit is performed using the data carried in the object; predictions are then
-        recomputed for those data. This is computationally heavier but captures variability from model fitting.</p></li>
+        recomputed for those data. This is computationally heavier but captures variability from model fitting. If every refit
+        fails, the function reports the first captured failure rather than silently returning an all-<code>NA</code> bootstrap result.</p></li>
 </ul><p>The <code>plot</code> method draws a base-R shaded band for AUC(t) when bootstrap SEs are present.</p>
     </div>
     <div id="value">

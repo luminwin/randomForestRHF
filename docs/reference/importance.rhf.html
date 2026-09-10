@@ -30,7 +30,7 @@ importance evolves over time."><meta property="og:image" content="https://www.ra
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Random Hazard Forests</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.3</span>
       </span>
     </div>
 
@@ -133,52 +133,100 @@ importance evolves over time.</p>
 <span></span>
 <span><span class="fu">dotmatrix.importance.rhf</span><span class="op">(</span><span class="va">x</span>,</span>
 <span> vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span> top_n_union <span class="op">=</span> <span class="fl">15L</span>,</span>
+<span> top.n.union <span class="op">=</span> <span class="fl">15L</span>,</span>
 <span> variable.labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span> time.labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span> sort_by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"q90"</span>, <span class="st">"sum"</span>, <span class="st">"max"</span>, <span class="st">"mean"</span>, <span class="st">"median"</span>, <span class="st">"alphabetical"</span>, <span class="st">"cluster"</span>, <span class="st">"none"</span><span class="op">)</span>,</span>
-<span> sort_abs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span> sort.by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"q90"</span>, <span class="st">"sum"</span>, <span class="st">"max"</span>, <span class="st">"mean"</span>, <span class="st">"median"</span>, <span class="st">"alphabetical"</span>, <span class="st">"cluster"</span>, <span class="st">"none"</span><span class="op">)</span>,</span>
+<span> sort.abs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span> transform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"log10"</span><span class="op">)</span>,</span>
-<span> color_by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"value"</span>, <span class="st">"sign"</span>, <span class="st">"single"</span>, <span class="st">"none"</span><span class="op">)</span>,</span>
-<span> point_color <span class="op">=</span> <span class="st">"steelblue4"</span>,</span>
-<span> value_colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey85"</span>, <span class="st">"steelblue4"</span><span class="op">)</span>,</span>
-<span> sign_colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"firebrick3"</span>, <span class="st">"grey90"</span>, <span class="st">"steelblue4"</span><span class="op">)</span>,</span>
+<span> color.by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"value"</span>, <span class="st">"sign"</span>, <span class="st">"single"</span>, <span class="st">"none"</span><span class="op">)</span>,</span>
+<span> point.color <span class="op">=</span> <span class="st">"steelblue4"</span>,</span>
+<span> value.colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey85"</span>, <span class="st">"steelblue4"</span><span class="op">)</span>,</span>
+<span> sign.colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"firebrick3"</span>, <span class="st">"grey90"</span>, <span class="st">"steelblue4"</span><span class="op">)</span>,</span>
+<span> pch <span class="op">=</span> <span class="fl">16</span>,</span>
 <span> cex.range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.6</span>, <span class="fl">3.2</span><span class="op">)</span>,</span>
 <span> size.cap <span class="op">=</span> <span class="fl">0.99</span>,</span>
 <span> color.cap <span class="op">=</span> <span class="fl">0.99</span>,</span>
 <span> alpha <span class="op">=</span> <span class="fl">0.9</span>,</span>
-<span> show.grid <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span> show.grid <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span> grid.col <span class="op">=</span> <span class="st">"grey92"</span>,</span>
 <span> legend <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span> display.note <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span> legend.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span> display.note <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span> xlab <span class="op">=</span> <span class="st">""</span>,</span>
 <span> ylab <span class="op">=</span> <span class="st">""</span>,</span>
 <span> main <span class="op">=</span> <span class="st">"RHF time-localized VarPro importance"</span>,</span>
 <span> axis.cex <span class="op">=</span> <span class="fl">0.7</span>,</span>
 <span> var.cex <span class="op">=</span> <span class="fl">0.7</span>,</span>
 <span> time.label.srt <span class="op">=</span> <span class="fl">45</span>,</span>
-<span> save_plot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span> save.plot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span> out.file <span class="op">=</span> <span class="st">"rhf_time_varpro_dotmatrix.pdf"</span>,</span>
 <span> width <span class="op">=</span> <span class="fl">11</span>,</span>
 <span> height <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span> mar <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span> legend.width <span class="op">=</span> <span class="fl">0.7</span>,</span>
+<span> point.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span> <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">barplot.importance.rhf</span><span class="op">(</span><span class="va">x</span>,</span>
+<span> vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span> top.n.union <span class="op">=</span> <span class="fl">15L</span>,</span>
+<span> variable.labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span> time.labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span> sort.by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"q90"</span>, <span class="st">"sum"</span>, <span class="st">"max"</span>, <span class="st">"mean"</span>, <span class="st">"median"</span>, <span class="st">"alphabetical"</span>, <span class="st">"cluster"</span>, <span class="st">"none"</span><span class="op">)</span>,</span>
+<span> sort.abs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span> transform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"log10"</span><span class="op">)</span>,</span>
+<span> color.by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"value"</span>, <span class="st">"sign"</span>, <span class="st">"single"</span>, <span class="st">"none"</span><span class="op">)</span>,</span>
+<span> bar.color <span class="op">=</span> <span class="st">"steelblue4"</span>,</span>
+<span> value.colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey85"</span>, <span class="st">"steelblue4"</span><span class="op">)</span>,</span>
+<span> sign.colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"firebrick3"</span>, <span class="st">"grey90"</span>, <span class="st">"steelblue4"</span><span class="op">)</span>,</span>
+<span> bar.width <span class="op">=</span> <span class="fl">0.65</span>,</span>
+<span> bar.max.height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span> size.cap <span class="op">=</span> <span class="fl">0.99</span>,</span>
+<span> color.cap <span class="op">=</span> <span class="fl">0.99</span>,</span>
+<span> alpha <span class="op">=</span> <span class="fl">0.9</span>,</span>
+<span> show.grid <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span> grid.col <span class="op">=</span> <span class="st">"grey92"</span>,</span>
+<span> zero.line <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span> zero.col <span class="op">=</span> <span class="st">"grey65"</span>,</span>
+<span> legend <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span> legend.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span> display.note <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span> xlab <span class="op">=</span> <span class="st">""</span>,</span>
+<span> ylab <span class="op">=</span> <span class="st">""</span>,</span>
+<span> main <span class="op">=</span> <span class="st">"RHF time-localized VarPro importance"</span>,</span>
+<span> axis.cex <span class="op">=</span> <span class="fl">0.7</span>,</span>
+<span> var.cex <span class="op">=</span> <span class="fl">0.7</span>,</span>
+<span> time.label.srt <span class="op">=</span> <span class="fl">45</span>,</span>
+<span> save.plot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span> out.file <span class="op">=</span> <span class="st">"rhf_time_varpro_barplot.pdf"</span>,</span>
+<span> width <span class="op">=</span> <span class="fl">11</span>,</span>
+<span> height <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span> mar <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span> legend.width <span class="op">=</span> <span class="fl">0.7</span>,</span>
+<span> border <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span> bar.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span> <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'importance.rhf'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>,</span>
-<span> type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dotmatrix"</span>, <span class="st">"lines"</span><span class="op">)</span>,</span>
+<span> type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"barplot"</span>, <span class="st">"dotmatrix"</span>, <span class="st">"lines"</span><span class="op">)</span>,</span>
 <span> vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span> variable.labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span> top <span class="op">=</span> <span class="fl">10L</span>,</span>
 <span> rank.by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"q90"</span>, <span class="st">"median"</span>, <span class="st">"mean"</span>, <span class="st">"max"</span><span class="op">)</span>,</span>
 <span> curve <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"step"</span>, <span class="st">"line"</span>, <span class="st">"lowess"</span><span class="op">)</span>,</span>
 <span> smooth.f <span class="op">=</span> <span class="fl">2</span><span class="op">/</span><span class="fl">3</span>,</span>
 <span> display.cap <span class="op">=</span> <span class="fl">0.99</span>,</span>
-<span> display.note <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span> display.note <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span> xlab <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span> ylab <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span> lty <span class="op">=</span> <span class="fl">1</span>,</span>
 <span> lwd <span class="op">=</span> <span class="fl">2</span>,</span>
+<span> line.colors <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span> line.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span> legend <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span> legend.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span> <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -264,73 +312,134 @@ importance evolves over time.</p>
   <code>"time_by_variable"</code> returns the transpose with window metadata.</p></dd>
 
 
-  <dt id="arg-type-vars-top-n-union">type, vars, top_n_union<a class="anchor" aria-label="anchor" href="#arg-type-vars-top-n-union"></a></dt>
+  <dt id="arg-type-vars-top-n-union">type, vars, top.n.union<a class="anchor" aria-label="anchor" href="#arg-type-vars-top-n-union"></a></dt>
 <dd><p>Arguments controlling which
-  variables are displayed and which plot is produced. <code>type = "dotmatrix"</code>
-  gives the time-by-variable dot-matrix display; <code>type = "lines"</code> gives a
-  line, step, or smoothed view for selected variables. When <code>vars</code> is
-  omitted, the line plot chooses <code>top</code> variables using <code>rank.by</code>,
-  while the dot-matrix plot uses the union of the top
-  <code>top_n_union</code> variables across time.</p></dd>
+  variables are displayed and which plot is produced. <code>type = "barplot"</code>
+  (the default) gives the time-by-variable bar-matrix display,
+  <code>type = "dotmatrix"</code> gives the companion dot-matrix display, and
+  <code>type = "lines"</code>
+  gives a line, step, or smoothed view for selected variables. When <code>vars</code>
+  is omitted, the line plot chooses <code>top</code> variables using <code>rank.by</code>,
+  while the dot-matrix and bar-matrix plots use the union of the top
+  <code>top.n.union</code> variables across time.</p></dd>
 
 
-  <dt id="arg-curve-smooth-f-lty-lwd-display-cap-display-note">curve, smooth.f, lty, lwd, display.cap, display.note<a class="anchor" aria-label="anchor" href="#arg-curve-smooth-f-lty-lwd-display-cap-display-note"></a></dt>
-<dd><p>Arguments for
-  <code>type = "lines"</code>. <code>curve</code> chooses between step, ordinary line,
-  and lowess-smoothed displays; <code>smooth.f</code> is passed to
-  <code><a href="https://rdrr.io/r/stats/lowess.html" class="external-link">stats::lowess()</a></code> when needed; <code>lty</code> and <code>lwd</code> control line
-  type and line width. <code>display.cap</code> applies display-only quantile
-  capping to stabilize the vertical scale in the presence of extreme spikes,
-  and <code>display.note</code> toggles the on-plot note when capping is applied.
-  The same <code>display.note</code> flag is also used by the dot-matrix plot.</p></dd>
+  <dt id="arg-curve-smooth-f-lty-lwd-line-colors-line-args-display-cap-display-note">curve, smooth.f, lty, lwd, line.colors, line.args, display.cap,
+  display.note<a class="anchor" aria-label="anchor" href="#arg-curve-smooth-f-lty-lwd-line-colors-line-args-display-cap-display-note"></a></dt>
+<dd><p>Arguments for <code>type = "lines"</code>. <code>curve</code> chooses
+  between step, ordinary line, and lowess-smoothed displays;
+  <code>smooth.f</code> is passed to <code><a href="https://rdrr.io/r/stats/lowess.html" class="external-link">stats::lowess()</a></code> when needed;
+  <code>lty</code>, <code>lwd</code>, and <code>line.colors</code> control line appearance;
+  and <code>line.args</code> is a named list of additional arguments for the
+  <code><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">graphics::lines()</a></code> layer. <code>display.cap</code> applies display-only
+  quantile capping to stabilize the vertical scale in the presence of extreme
+  spikes. <code>display.note</code> toggles the on-plot capping note for every plot
+  type.</p></dd>
 
 
-  <dt id="arg-variable-labels-time-labels-sort-by-sort-abs">variable.labels, time.labels, sort_by, sort_abs<a class="anchor" aria-label="anchor" href="#arg-variable-labels-time-labels-sort-by-sort-abs"></a></dt>
-<dd><p>Arguments
-  controlling variable labeling and ordering in the dot-matrix plot. Variable
-  labels may be supplied as a named vector or a two-column data frame.
-  Variables may be ordered by robust aggregate importance, alphabetically,
-  hierarchical clustering, or left in their existing order.</p></dd>
+  <dt id="arg-variable-labels-time-labels-sort-by-sort-abs">variable.labels, time.labels, sort.by, sort.abs<a class="anchor" aria-label="anchor" href="#arg-variable-labels-time-labels-sort-by-sort-abs"></a></dt>
+<dd><p>Arguments controlling
+  labels and ordering. <code>variable.labels</code> is used by all plot types and may
+  be a named vector or a two-column data frame. <code>time.labels</code>,
+  <code>sort.by</code>, and <code>sort.abs</code> apply to the dot-matrix and bar-matrix
+  displays. An unnamed <code>time.labels</code> vector must have one label per time
+  window. Variables may be ordered by robust aggregate importance,
+  alphabetically, hierarchical clustering, or left in their existing order.</p></dd>
 
 
-  <dt id="arg-transform-color-by-point-color-value-colors-sign-colors-cex-range-size-cap-color-cap-alpha-legend">transform, color_by, point_color, value_colors, sign_colors,
-  cex.range, size.cap, color.cap, alpha, legend<a class="anchor" aria-label="anchor" href="#arg-transform-color-by-point-color-value-colors-sign-colors-cex-range-size-cap-color-cap-alpha-legend"></a></dt>
-<dd><p>Arguments
-  controlling dot size, color encoding, display-only quantile capping,
-  transparency, and the optional right-side legend in the dot-matrix plot.</p></dd>
+  <dt id="arg-transform-color-by-point-color-bar-color-value-colors-sign-colors-pch-cex-range-bar-width-bar-max-height-size-cap-color-cap-alpha">transform, color.by, point.color, bar.color, value.colors,
+  sign.colors, pch, cex.range, bar.width, bar.max.height, size.cap, color.cap,
+  alpha<a class="anchor" aria-label="anchor" href="#arg-transform-color-by-point-color-bar-color-value-colors-sign-colors-pch-cex-range-bar-width-bar-max-height-size-cap-color-cap-alpha"></a></dt>
+<dd><p>Arguments controlling dot size or bar height, color encoding,
+  display-only quantile capping, and transparency. For the bar-matrix plot,
+  <code>bar.width</code> controls the width of each bar within a time cell and
+  <code>bar.max.height</code> controls the largest bar height within a variable row.
+  When <code>color.by = "sign"</code>, magnitude controls size or height and signed
+  importance controls color; signed bars extend upward or downward from the
+  row center. Negative values are omitted, with a warning, for the other color
+  modes. A one-color <code>value.colors</code> or <code>sign.colors</code> vector is
+  allowed and produces constant coloring. To omit the continuous color-scale
+  legend as well, use <code>color.by = "single"</code> together with
+  <code>point.color</code> for a dot matrix or <code>bar.color</code> for a bar matrix.</p></dd>
 
 
-  <dt id="arg-xlab-ylab-main-axis-cex-var-cex-time-label-srt-show-grid-grid-col-mar-legend-width-width-height-save-plot-out-file">xlab, ylab, main, axis.cex, var.cex, time.label.srt, show.grid,
-  grid.col, mar, legend.width, width, height, save_plot, out.file<a class="anchor" aria-label="anchor" href="#arg-xlab-ylab-main-axis-cex-var-cex-time-label-srt-show-grid-grid-col-mar-legend-width-width-height-save-plot-out-file"></a></dt>
-<dd><p>Display,
-  layout, and export options for the plotting helpers. By default the
-  dot-matrix plot uses blank axis labels, draws light guide lines, computes
-  margins automatically, and can optionally be written to file with
-  <code>save_plot = TRUE</code>.</p></dd>
+  <dt id="arg-legend">legend<a class="anchor" aria-label="anchor" href="#arg-legend"></a></dt>
+<dd><p>Logical. If <code>TRUE</code>, draw the applicable matrix or
+  line-plot legend.</p></dd>
+
+
+  <dt id="arg-legend-args">legend.args<a class="anchor" aria-label="anchor" href="#arg-legend-args"></a></dt>
+<dd><p>Named list controlling the legend for every plot type.
+  For <code>type = "dotmatrix"</code> and <code>type = "barplot"</code>, supported entries
+  are <code>title</code>, <code>color.title</code>, <code>cex</code>, and <code>title.cex</code>.
+  Omitting <code>title</code>, or setting it to <code>TRUE</code>, retains the automatic
+  magnitude title. Setting <code>title = FALSE</code>, <code>NULL</code>, or <code>""</code>
+  suppresses both matrix-legend headings; a character string supplies a custom
+  magnitude title. <code>color.title</code> can independently retain, suppress, or
+  replace the color-scale title. <code>cex</code> controls numeric legend labels and
+  defaults to 0.85; <code>title.cex</code> controls legend headings and defaults to
+  0.9. A specifically supplied <code>color.title</code> takes precedence over the
+  general title suppression. Increase <code>legend.width</code> when using a long
+  custom title or unusually large legend text. For <code>type = "lines"</code>, the
+  list is passed to <code><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">graphics::legend()</a></code>, allowing options such as
+  <code>x</code>, <code>cex</code>, <code>bty</code>, <code>ncol</code>, and <code>title</code>.</p></dd>
+
+
+  <dt id="arg-point-args-bar-args">point.args, bar.args<a class="anchor" aria-label="anchor" href="#arg-point-args-bar-args"></a></dt>
+<dd><p>Named lists passed to the dot
+  <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">graphics::points()</a></code> layer and bar <code><a href="https://rdrr.io/r/graphics/rect.html" class="external-link">graphics::rect()</a></code> layer,
+  respectively. Data-driven coordinates, sizes, heights, and colors are
+  protected and cannot be replaced through these lists.</p></dd>
+
+
+  <dt id="arg-xlab-ylab-main-axis-cex-var-cex-time-label-srt-show-grid-grid-col-zero-line-zero-col-border-mar-legend-width-width-height-save-plot-out-file">xlab, ylab, main, axis.cex, var.cex, time.label.srt, show.grid,
+  grid.col, zero.line, zero.col, border, mar, legend.width, width, height,
+  save.plot, out.file<a class="anchor" aria-label="anchor" href="#arg-xlab-ylab-main-axis-cex-var-cex-time-label-srt-show-grid-grid-col-zero-line-zero-col-border-mar-legend-width-width-height-save-plot-out-file"></a></dt>
+<dd><p>Display, layout, and export options for the plotting
+  helpers. The matrix plots use blank axis labels and do not draw guide lines
+  by default. When <code>mar = NULL</code>, the left margin is computed from the
+  physical width of the resolved variable labels, retaining space for long
+  informatics names without imposing a large fixed margin for short names.
+  The bar-matrix magnitude key uses compact, non-overlapping reference-bar
+  spacing; when the magnitude and color titles are identical, the color key
+  moves upward to avoid unused space between the legend sections. Files can
+  be written with <code>save.plot = TRUE</code>. <code>zero.line</code> and
+  <code>zero.col</code> control row-center reference lines for signed bar plots;
+  <code>border</code> controls rectangle borders.</p></dd>
 
 
   <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Additional arguments passed to internal calculations or plotting
-  routines.</p></dd>
+<dd><p>Additional named arguments for the initial
+  <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">graphics::plot()</a></code> frame. Point, bar, and line layers use
+  <code>point.args</code>, <code>bar.args</code>, and <code>line.args</code>, respectively.
+  Legend formatting uses <code>legend.args</code> for both matrix and line plots.
+  Structural matrix geometry such as <code>xlim</code> and
+  <code>ylim</code> is controlled by the matrix helpers and cannot be replaced
+  through <code>...</code>; line plots accept user-supplied <code>xlim</code> and
+  <code>ylim</code> through <code>...</code>.</p></dd>
+
 
 </dl></div>
     <div id="details">
     <h2>Details</h2>
 
 
-<p>This routine implements a <em>fast localization</em> strategy for RHF
-VarPro importance. The master time grid is taken from
-<code>time.interest</code>. For a window corresponding to a selected grid
-index, the method keeps only those pseudo-individuals whose start-stop
-interval overlaps that window, while reusing the same sampled rules and
-near-miss sets already obtained from the RHF fit.</p>
-<p>For RHF objects the underlying VarPro importance calculation follows a
-regression-style approach in which the working response is the logarithm
-of the integrated hazard exposure, and local rule importance is computed
-by comparing this working response in a rule versus its near-miss
-set. Time localization is achieved by restricting those memberships
-within each window rather than rebuilding the entire rule structure
-repeatedly.</p>
+
+<p>Implements time-localized RHF variable priority.  The time grid is given
+by <code>time.interest</code>.  For each selected time window, the method uses
+the counting process start–stop records whose intervals overlap that
+window.  The forest rules and near-miss sets are taken from the fitted
+RHF object and are reused across time windows.</p>
+<p>For RHF objects, variable priority (VarPro) is applied in a
+regression-style form.  The working response is the logarithm of the
+integrated hazard exposure assigned by RHF over the relevant
+interval-window overlap.  Local priority for a variable is computed by
+comparing this working response among records satisfying a forest rule
+with the corresponding response among records in the rule's near-miss
+set, obtained by releasing that variable from the rule.  Temporal
+localization comes from restricting the calculation to records active in
+each time window, rather than rebuilding the rules or refitting the
+forest at each time point.</p>
 <p>The helper <code>varpro.cache()</code> stores the minimum information needed
 for repeated localized importance calculations: a regression-style rule
 template, window metadata, the working response source, and precomputed
@@ -348,6 +457,13 @@ robust over-time ranking based on the 90th percentile, and the plotting
 helpers apply optional quantile capping for display only. This prevents
 rare extreme spikes from flattening curves while preserving the original
 importance matrix for downstream analyses.</p>
+<p>For consistent base-graphics behavior, <code>...</code> customizes the initial
+plot frame for every plot type. Layer-specific options belong in
+<code>point.args</code>, <code>bar.args</code>, or <code>line.args</code>. The single
+<code>legend.args</code> list controls the custom matrix legend or is passed to
+<code><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">graphics::legend()</a></code> for a line plot. Data-driven coordinates, sizes,
+heights, and colors remain under control of the plotting helper. Line-plot
+limits may still be supplied as <code>xlim</code> or <code>ylim</code> through <code>...</code>.</p>
     </div>
     <div id="value">
     <h2>Value</h2>
@@ -371,8 +487,31 @@ extraction settings.</p>
 that includes robust over-time summaries for the leading variables.</p>
 <p><code><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame()</a></code> returns one of the supported data-frame views.</p>
 <p><code>dotmatrix.importance.rhf()</code> produces a base-R dot-matrix plot and
-returns plotting metadata invisibly.</p>
-<p><code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> returns invisibly the result of the underlying plotting helper.</p>
+returns plotting metadata invisibly, including the resolved
+<code>legend.args</code> settings.</p>
+<p><code>barplot.importance.rhf()</code> produces a base-R bar-matrix plot and returns
+plotting metadata invisibly, including the resolved <code>legend.args</code>
+settings.</p>
+<p><code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> returns invisibly the result of the underlying plotting helper.
+For <code>type = "lines"</code>, the returned display-capped matrix has attributes
+containing the selected variable codes, resolved labels and time values.</p>
+    </div>
+    <div id="references">
+    <h2>References</h2>
+
+
+<p>Ishwaran H. (2025). Multivariate Statistics: Classical Foundations and
+  Modern Machine Learning.  Chapman and Hall.</p>
+<p>Ishwaran H., Kogalur U.B., Hsich E.M. and Lee D.K. (2026).  Random
+  hazard forests.</p>
+<p>Lu, M. and Ishwaran, H. (2024). Model-independent variable selection
+  via the rule-based variable priority. arXiv e-prints, pp.arXiv-2409.</p>
+<p>Lu, M. and Ishwaran, H. (2025). Individual variable priority: a
+  model-independent local gradient method for variable importance.
+  <em>Artificial Intelligence Review</em>, 58:407.</p>
+<p>Zhou L., Lu M. and Ishwaran H. (2026).  Variable priority for
+  unsupervised variable selection.  <em>Pattern Recognition</em>,
+  172:112727.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -408,19 +547,30 @@ returns plotting metadata invisibly.</p>
 <span></span>
 <span><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">## dot-matrix importance plot (default)</span></span>
+<span><span class="co">## bar-matrix importance plot (default)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">imp.t</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## companion dot-matrix importance plot</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">imp.t</span>, type <span class="op">=</span> <span class="st">"dotmatrix"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## suppress matrix-legend titles and enlarge its numeric labels</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">imp.t</span>, legend.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>title <span class="op">=</span> <span class="cn">FALSE</span>, cex <span class="op">=</span> <span class="fl">1.15</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## retain titles but control their size separately</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">imp.t</span>, legend.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cex <span class="op">=</span> <span class="fl">1.05</span>, title.cex <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## step-style importance line plot for the top variables</span></span>
 <span><span class="co">## (ranked by the 90th percentile over time and display-capped at q99)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">imp.t</span>, type <span class="op">=</span> <span class="st">"lines"</span>, top <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## smoothed importance plot for all variables with display capping</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">imp.t</span>, type <span class="op">=</span> <span class="st">"lines"</span>, curve <span class="op">=</span> <span class="st">"lowess"</span>, smooth.f <span class="op">=</span> <span class="fl">0.5</span>,</span>
-<span>     display.cap <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">imp.t</span>, type <span class="op">=</span> <span class="st">"lines"</span>, curve <span class="op">=</span> <span class="st">"lowess"</span>, smooth.f <span class="op">=</span> <span class="fl">0.5</span>, display.cap <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">## dot-matrix plot with robust ordering and display capping</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">imp.t</span>, sort_by <span class="op">=</span> <span class="st">"q90"</span>, size.cap <span class="op">=</span> <span class="fl">0.99</span>, color.cap <span class="op">=</span> <span class="fl">0.99</span><span class="op">)</span></span>
+<span><span class="co">## robust ordering and display capping</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">imp.t</span>, sort.by <span class="op">=</span> <span class="st">"q90"</span>, size.cap <span class="op">=</span> <span class="fl">0.99</span>, color.cap <span class="op">=</span> <span class="fl">0.99</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## bar-matrix plot using signed colors, if signed importance values are present</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">imp.t</span>, color.by <span class="op">=</span> <span class="st">"sign"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span></span>
 <span></span>
