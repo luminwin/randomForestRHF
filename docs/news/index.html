@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">Random Hazard Forests</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0</span>
       </span>
     </div>
 
@@ -71,6 +71,15 @@
     </div>
 
 
+<div class="section level2">
+<h2 id="randomforestrhf-2-1-0">randomForestRHF 2.1.0<a class="anchor" aria-label="anchor" href="#randomforestrhf-2-1-0"></a></h2>
+<ul>
+<li><p>Added <code>coe.aggregate = "max.robust"</code> as the default COE ensemble aggregation for new fits, with additional protection against repeated maximum tree contributions. The correction can also apply at <code>coe.trim = 0</code>; <code>trimmed.mean</code>, <code>median</code>, and <code>mean</code> remain available.</p></li>
+<li><p>Extended OOB trim selection and fitted hazard configuration to <code>max.robust</code>. Prediction reuses the fitted aggregation policy and selected trim, while restore recomputes the trim selection from OOB risk.</p></li>
+<li><p>Standardized <code>coe.trim = 0.5</code> as an explicit exact-median endpoint for both <code>max.robust</code> and <code>trimmed.mean</code>, including fixed, adaptively selected, and inherited prediction settings, with consistent risk evaluation and selected-aggregation metadata.</p></li>
+<li><p>Updated <code>auct.rhf()</code> to use the fitted <code>max.robust</code> rule when reconstructing cumulative/dynamic markers and recovering incident markers from retained tree-level arrays, including repeated-maximum correction and the exact-median endpoint.</p></li>
+</ul>
+</div>
 <div class="section level2">
 <h2 id="randomforestrhf-2-0-3">randomForestRHF 2.0.3<a class="anchor" aria-label="anchor" href="#randomforestrhf-2-0-3"></a></h2>
 <ul>
